@@ -1,0 +1,20 @@
+<!-- templates/addbook.html -->
+{% extends "base.html" %}
+
+{% block title %}Ajouter Livres{% endblock %}
+
+{% block content %}
+<body>
+    <h1>Ajouter un Nouveau Livre</h1>
+    <form action="/add_book" method="post">
+        <label for="auteur">Auteur:</label>
+        <input type="text" id="auteur" name="auteur" required><br><br>
+        <label for="editeur">Éditeur:</label>
+        <input type="text" id="editeur" name="editeur" required><br><br>
+        <label for="nom_book">Nom du Livre:</label>
+        <input type="text" id="nom_book" name="nom_book" required><br><br>
+        <button type="submit">Ajouter</button>
+    </form>
+</body>
+</html>
+{% endblock %}

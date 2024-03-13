@@ -1,0 +1,28 @@
+<!-- templates/booklist.html -->
+{% extends "base.html" %}
+
+{% block title %}Liste des Livres{% endblock %}
+
+{% block content %}
+    <h1>Liste des Livres</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Nom du Livre</th>
+                <th>Auteur</th>
+                <th>Éditeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.ISBN }}</td>
+                <td>{{ book.nom_book }}</td>
+                <td>{{ book.auteur }}</td>
+                <td>{{ book.editeur }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
