@@ -1,8 +1,10 @@
 from uuid import uuid4
 
-from fastapi import APIRouter, HTTPException, status
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, HTTPException, status , Form , Request
+from fastapi.responses import JSONResponse , HTMLResponse , RedirectResponse
 from pydantic import ValidationError
+
+from fastapi.templating import Jinja2Templates
 
 from app.schema.books import Books
 
@@ -11,8 +13,10 @@ from app.database.data import database
 
 router = APIRouter(tags=["Tasks"])
 
+templates = Jinja2Templates(directory="app/templates")
 
-@router.get('/')
+
+@router.get('/s')
 def get_all_books():
     books = service.get_all_books()
 
@@ -22,8 +26,8 @@ def get_all_books():
     )
 
 
-@router.post('/create_book')
-def create_new_books(author: str, editor: str, nom_books: str):
+@router.post('/create_book',response_class=HTMLResponse)
+def create_new_books(request: Request ,author: str = Form(...), editor: str = Form(...), nom_books: str = Form(...)):
     new_books_data = {
         "ISBN": str(uuid4()),
         "author": author,
@@ -40,12 +44,11 @@ def create_new_books(author: str, editor: str, nom_books: str):
         
     # service.save_books(new_book)
     new_book = service.save_books(new_books_data)
-    return new_book
-# JSONResponse(new_book.model_dump())
+    return templates.TemplateResponse("menu.html", {"request": request})
 
 
-@router.delete('/{book_isbn}')
-def delete_book(book_isbn: str):
+@router.post('/delete_book', response_class=HTMLResponse)
+def delete_old_book(request: Request , book_isbn: str = Form(...)):
     book = service.get_book_by_id(book_isbn)
     if not book:
         raise HTTPException(
@@ -53,19 +56,19 @@ def delete_book(book_isbn: str):
             detail="book not found.",
         )
     service.delete_book(book_isbn)
-    return {"detail": "book deleted successfully."}
+    return templates.TemplateResponse("menu.html", {"request": request})
     
 
 
-@router.put("/{book_isbn}")
-def update_book(book_isbn: str, auteur: str, editeur: str,  nom_book: str):
+@router.post("/update_book",response_class=HTMLResponse)
+def update_old_book(request: Request , book_isbn: str = Form(...) , author: str = Form(...), editor: str = Form(...), nom_books: str = Form(...)):
     # Recherche de la tâche dans la base de données
     for book in database["books"]:
         if book["ISBN"] == book_isbn:
 
-            book["author"] = auteur
-            book["editor"] = editeur
-            book["book_name"] = nom_book
-            return book
+            book["author"] = author
+            book["editor"] = editor
+            book["book_name"] = nom_books
+            return templates.TemplateResponse("menu.html", {"request": request})
     # Si la tâche n'est pas trouvée, renvoyer une erreur 404
     raise HTTPException(status_code=404, detail="book not found")

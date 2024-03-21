@@ -4,25 +4,31 @@
 {% block title %}Liste des Livres{% endblock %}
 
 {% block content %}
-    <h1>Liste des Livres</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Identifiant</th>
-                <th>Nom du Livre</th>
-                <th>Auteur</th>
-                <th>Éditeur</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in books %}
-            <tr>
-                <td>{{ book.ISBN }}</td>
-                <td>{{ book.nom_book }}</td>
-                <td>{{ book.auteur }}</td>
-                <td>{{ book.editeur }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
+    <h1 class="mt-5">Liste des Livres</h1>
+    <p class="mt-4">Nombre total de livres : {{ books|length }}</p>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Nom du Livre</th>
+                    <th>Auteur</th>
+                    <th>Éditeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.editor }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
+
