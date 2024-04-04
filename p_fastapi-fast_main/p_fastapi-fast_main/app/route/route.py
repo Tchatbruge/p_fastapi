@@ -16,15 +16,14 @@ router = APIRouter(tags=["Tasks"])
 templates = Jinja2Templates(directory="app/templates")
 
 
-@router.post('/s')
-def get_all_books():
-    books = service.get_all_books()
-    print("the email", username, "the password", password)
+# @router.post('/s')
+# def get_all_books():
+#     books = service.get_all_books()
 
-    """return JSONResponse(
-        content={"books": [book.model_dump() for book in books] , "total_books": len(books)},
-        status_code=200, 
-    )"""
+#     """return JSONResponse(
+#         content={"books": [book.model_dump() for book in books] , "total_books": len(books)},
+#         status_code=200, 
+#     )"""
 
 
 @router.post('/create_book',response_class=HTMLResponse)

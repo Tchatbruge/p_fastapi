@@ -1,5 +1,6 @@
 from app.schema.books import Books
 from app.database.data import database
+from app.schema.user import UserSchema
 
 
 def save_books(new_books: Books) -> Books:
@@ -27,3 +28,13 @@ def delete_book(book_isbn: str):
     book = get_book_by_id(book_isbn)
     if book:
         database["books"].remove(book)
+
+def get_all_users() -> list[UserSchema]:
+    books_data = database["users"]
+    books = [] 
+
+    for data in books_data:
+        book = UserSchema(**data)
+        books.append(book)
+
+    return books
