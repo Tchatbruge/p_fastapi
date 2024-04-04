@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Modifier Livres{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Modifier un Livre</h1>
+    <form class="mt-4" action="/update_book" method="post">
+        <input type="hidden" name="_method" value="put">
+        <div class="form-group">
+            <label for="ISBN">ISBN:</label>
+            <input type="text" class="form-control" id="ISBN" name="book_isbn" required>
+        </div>
+        <div class="form-group">
+            <label for="auteur">Auteur:</label>
+            <input type="text" class="form-control" id="auteur" name="author" required>
+        </div>
+        <div class="form-group">
+            <label for="editeur">Éditeur:</label>
+            <input type="text" class="form-control" id="editeur" name="editor" required>
+        </div>
+        <div class="form-group">
+            <label for="nom_book">Nom du Livre:</label>
+            <input type="text" class="form-control" id="nom_book" name="nom_books" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!-- templates/addbook.html -->
+{% extends "base.html" %}
+
+{% block title %}Ajouter Livres{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Ajouter un Nouveau Livre</h1>
+    <form class="mt-4" action="/create_book" method="post">
+        <div class="form-group">
+            <label for="auteur">Auteur:</label>
+            <input type="text" class="form-control" id="auteur" name="author" required>
+        </div>
+        <div class="form-group">
+            <label for="editeur">Éditeur:</label>
+            <input type="text" class="form-control" id="editeur" name="editor" required>
+        </div>
+        <div class="form-group">
+            <label for="nom_book">Nom du Livre:</label>
+            <input type="text" class="form-control" id="nom_book" name="nom_books" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+</div>
+{% endblock %}

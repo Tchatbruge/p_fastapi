@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Supprimer un Livres{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Supprimer un Livre</h1>
+    <form class="mt-4" action="/delete_book" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <div class="form-group">
+            <label for="ISBN">ISBN:</label>
+            <input type="text" class="form-control" id="ISBN" name="book_isbn" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Supprimer</button>
+    </form>
+</div>
+    
+{% endblock %}
