@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un repas</title>
+</head>
+<body>
+    <h1>Ajouter un repas</h1>
+    
+    
+    
+    <form action="/add-repas" method="post">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+        
+        <label for="nom_plat">Nom du plat:</label>
+        <input type="text" id="nom_plat" name="nom_plat" required><br><br>
+        
+        <div id="ingredients">
+            <label for="ingredient_1">Ingrédient 1:</label>
+            <input type="text" id="ingredient_1" name="ingredients" required>
+            <label for="calories_1">Calories:</label>
+            <input type="number" id="calories_1" name="calories" required><br><br>
+        </div>
+        
+        <button type="button" onclick="ajouterIngredient()">Ajouter les ingrédients et leurs calories</button><br><br>
+        
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <script>
+        var counter = 1;
+        function ajouterIngredient() {
+            counter++;
+            var newIngredient = document.createElement("div");
+            newIngredient.innerHTML = `
+                <label for="ingredient_${counter}">Ingrédient ${counter}:</label>
+                <input type="text" id="ingredient_${counter}" name="ingredients">
+                <label for="calories_${counter}">Calories:</label>
+                <input type="number" id="calories_${counter}" name="calories"><br><br>
+            `;
+            document.getElementById("ingredients").appendChild(newIngredient);
+        }
+    </script>
+</body>
+</html>

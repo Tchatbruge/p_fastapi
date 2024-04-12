@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modifier Repas</title>
+</head>
+<body>
+    <h1>Modifier Repas</h1>
+    <form action="/modifier-repas-save" method="post">
+        <input type="hidden" name="date" value="{{ date }}">
+        <input type="hidden" name="nom_plat" value="{{ repas.nom_plat }}">
+        <label for="nom_plat">Nom du plat:</label><br>
+        <input type="text" id="nom_plat" name="new_nom_plat" value="{{ repas.nom_plat }}"><br>
+        <div id="ingredients">
+            {% for ingredient in repas.ingredients %}
+            <label for="ingredient_{{ loop.index }}">Ingredient {{ loop.index }}:</label><br>
+            <input type="text" id="ingredient_{{ loop.index }}" name="new_ingredients" value="{{ ingredient }}"><br>
+            {% endfor %}  
+            {% for calorie in repas.calories %}
+            <label for="calorie_{{ loop.index }}">Calorie {{ loop.index }}:</label><br>
+            <input type="number" id="calorie_{{ loop.index }}" name="new_calories" value="{{ calorie }}"><br>
+            {% endfor %}
+        </div>
+        
+        <br><button type="submit">Enregistrer</button>
+    </form>
+   
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Alimentation</title>
+    <script>
+        // Fonction pour afficher le champ de saisie de date et le bouton Enregistrer lors de la modification
+        function afficherChampDateEtEnregistrer(elementId) {
+            var dateElement = document.getElementById(elementId);
+            var dateValue = dateElement.textContent.trim();
+            dateElement.innerHTML = `<input type="date" id="nouvelle_date_${elementId}" value="${dateValue}">`;
+            
+            // Cacher le bouton "Modifier"
+            document.getElementById(`modifier_${elementId}`).style.display = 'none';
+            
+            // Afficher le bouton "Enregistrer"
+            document.getElementById(`enregistrer_${elementId}`).style.display = 'inline-block';
+        }
+
+        // Fonction pour soumettre le formulaire de modification avec la nouvelle date
+        function submitForm(date) {
+            var newDate = document.getElementById(`nouvelle_date_date_${date}`).value;
+            document.querySelector(`form[action="/modifier-date"] input[name=new_date]`).value = newDate;
+            document.querySelector(`form[action="/modifier-date"] button[type=submit]`).click();
+        }
+
+        // Fonction pour mettre à jour l'interface après la modification de la date
+        function updateDate(date, newDate) {
+            document.getElementById(`date_${date}`).textContent = newDate;
+            // Afficher le bouton "Modifier"
+            document.getElementById(`modifier_${date}`).style.display = 'inline-block';
+            // Cacher le bouton "Enregistrer"
+            document.getElementById(`enregistrer_${date}`).style.display = 'none';
+        }
+
+        // Fonction pour afficher une alerte de confirmation avant la suppression
+        function confirmerSuppression() {
+            return confirm("Êtes-vous sûr de vouloir supprimer ?");
+        }
+
+        // Écouter l'événement "submit" du formulaire de modification de date
+        document.querySelector(`form[action="/modifier-date"]`).addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var date = event.target.querySelector('input[name=old_date]').value;
+            var newDate = event.target.querySelector('input[name=new_date]').value;
+
+            // Envoyer la requête de modification de date au serveur
+
+            // Après la modification de la date sur le serveur, mettre à jour l'interface
+            updateDate(date, newDate);
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Alimentation</h1>
+    <ul>
+        {% for date, repas_list in repas_par_date.items() %}
+            <li>
+                Repas du <span id="date_{{ date }}">{{ date }}</span>
+                <button id="modifier_date_{{ date }}" onclick="afficherChampDateEtEnregistrer('date_{{ date }}')">Modifier</button>
+                <form action="/modifier-date" method="post" id="form_{{ date }}">
+                    <input type="hidden" name="old_date" value="{{ date }}">
+                    <input type="date" name="new_date" id="nouvelle_date_date_{{ date }}" style="display: none;">
+                    <button type="submit" id="enregistrer_date_{{ date }}" style="display: none;" onclick="submitForm('{{ date }}')">Enregistrer</button>
+                </form>
+                
+                <form action="/supprimer-repas" method="post" onsubmit="return confirmerSuppression()">
+                    <input type="hidden" name="date" value="{{ date }}">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+            <ul>
+                {% for repas in repas_list %}
+                    <li>
+                        {{ repas.nom_plat }} - {{ repas.ingredients }} - {{ repas.calories }}
+                        <form action="/modifier-repas" method="post">
+                            <input type="hidden" name="date" value="{{ date }}">
+                            <input type="hidden" name="nom_plat" value="{{ repas.nom_plat }}">
+                            <button type="submit">Modifier</button>
+                        </form>
+                        
+                        <form action="/supprimer-ligne" method="post" onsubmit="return confirmerSuppression()">
+                            <input type="hidden" name="date" value="{{ date }}">
+                            <input type="hidden" name="nom_plat" value="{{ repas.nom_plat }}">
+                            <button type="submit">Supprimer cette ligne</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+    <form action="/creer-repas" method="post">
+        <button type="submit">Ajouter un repas</button>
+    </form>
+</body>
+</html>
