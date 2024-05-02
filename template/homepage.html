@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %}l'application de fitness{% endblock %} </title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div>
+        <h1 class="display-4"> Bienvenue sur fit you  </h1>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- <a class="navbar-brand" href="/">My App</a> -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/user/books"> my activities </a></li>
+
+                <!-- unique visible par un administrateur -->
+
+                <!-- Dexteur tu est sensé utiliser cette route pour la création d'activité dans la base donné. seulement l'administrateur peux le voir -->
+                {% if user.is_admin %}
+                <li class="nav-item"><a class="nav-link" href="/add_activity">Add activities </a></li> 
+                {% endif %} 
+
+
+                <li class="nav-item"><a class="nav-link" href="/blablabla">à vous d'ajouter </a></li>
+                <li class="nav-item"><a class="nav-link" href="/blablabla">à vous d'ajouter </a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.name %}
+                    <li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile">profile</a></li>
+                    <li class="nav-item"><button type="button" class="btn btn-success">Status: ON</button></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    <li class="nav-item"><button type="button" class="btn btn-danger">Status: OFF</button></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Bootstrap JS (optional, if you need Bootstrap JavaScript features) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+<style>
+    /* Custom styles can be added here */
+    body {
+        padding-top: 60px; /* Adjust this value according to your navbar height */
+    }
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    nav ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+</style>
+</html>
+</body>
+</html>

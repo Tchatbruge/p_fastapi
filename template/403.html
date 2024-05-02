@@ -1,0 +1,15 @@
+{% extends "404.html" %}
+
+{% block title %}Accès Refusé{% endblock %}
+
+{% block error_code %}
+    403 Forbidden
+{% endblock %}
+
+{% block error_message %}
+    Sorry, the email entered has already been used.
+{% endblock %}
+
+{% block account %}
+<a href="/create" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take me back  </a>
+{% endblock %}

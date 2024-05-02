@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <h1> Create your account </h1>
+                    <form action="/create_account" method="post" id="passwordVerifyForm">
+                        <div class="form-outline mb-4">
+                            <input type="text" id="name" name="name" class="form-control form-control-lg" required>
+                            <label class="form-label" for="nom">Name</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" id="surnom" name="surname" class="form-control form-control-lg" required>
+                            <label class="form-label" for="surnom">Surname</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="email" id="email" name="email" class="form-control form-control-lg" required>
+                            <label class="form-label" for="email">Email</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="password" id="password" name="password" class="form-control form-control-lg" required>
+                            <label class="form-label" for="password">password</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" required>
+                            <label class="form-label" for="confirm_password">Confirme password</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Create account</button>
+                    </form>
+
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <a href="/" class="btn btn-secondary btn-lg">Return to login page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    document.getElementById('passwordVerifyForm').addEventListener('submit', function(event) {
+        var newPassword = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirm_password').value;
+    
+        if (newPassword !== confirmPassword) {
+            event.preventDefault(); // Stop form submission
+            alert('Les mots de passe ne correspondent pas. Veuillez réessayer.');
+        }
+    });
+</script>
+</html>

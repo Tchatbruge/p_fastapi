@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Profile</h2>
+    <form action="/users/profile" method="post">
+        <input type="hidden" name="_method" value="put">
+        <div class="mb-3">
+            <label for="name" class="form-label">name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required readonly>
+        </div>
+        <div class="mb-3">
+            <label for="surname" class="form-label">First Name:</label>
+            <input type="text" class="form-control" id="surname" name="surname" value="{{ user.surname }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="height" class="form-label">Height:</label>
+            <input type="number" step="0.01" class="form-control" id="height" name="height" value="{{ user.height }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="weight" class="form-label">Weight:</label>
+            <input type="int" class="form-control" id="weight" name="weight" value="{{ user.weight }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="admin_name" class="form-label">administrateur:</label>
+            <input type="text" class="form-control" id="admin_name" name="is_admin" value="{{ user.is_admin }}" required readonly>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
+{% endblock %}
