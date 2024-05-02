@@ -22,7 +22,7 @@ class UserUpdateSchema(BaseModel):
 
 
 
-#-------------- ajout
+#-------------- schema Dexter 
 
 class ActivitySchema(BaseModel):
     name:str
