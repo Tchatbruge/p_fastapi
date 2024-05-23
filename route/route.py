@@ -2,7 +2,7 @@ from fastapi import APIRouter , Depends, HTTPException, Request , Form, status
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse, Response , HTMLResponse,RedirectResponse
 from database.db_init import SessionLocal
-from schema.models import User, Activity,TrainingProgram , UserPreference , Repas
+from schema.models import User, Activity, Repas,TrainingProgram , UserPreference , Repas
 from service.auth import verify_password, hash_password,create_training_program,create_user_training_program ,update_user_training_program, update_training_program
 from database.db_init import get_db
 from service.login_manager import login_manager
@@ -87,7 +87,7 @@ async def get_profile(request: Request, db: Session = Depends(get_db), user: Use
     return template.TemplateResponse("profile.html", {"request": request,"user":user,"programes":programes })
 
 
-#pour afficher la page de modification du profile
+#pour éditer la page de modification du profile
 @router.get("/edit_profile", response_class=HTMLResponse)
 async def get_profile_edit(request: Request , db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     programes = get_user_training_programes(user.id, db)
@@ -444,7 +444,6 @@ async def delete_meal_line(request: Request,
     
     db.commit() 
     return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all()})
-
 
 
 

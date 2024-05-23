@@ -63,10 +63,10 @@ class Repas(Base):
 
     id = Column(Integer, primary_key=True)
     date = Column(String)
-    name_meal = Column(String)
-    ingredients = Column(JSON)
+    name_meal = Column(String) 
+    ingredients = Column(String)
     gramms = Column(Integer)
-    calories = Column(JSON)
+    calories = Column(Integer)
 
     #clé étrangère pour la relation ont-to-many avec la table User
     user_id = Column (Integer, ForeignKey('users.id'))
