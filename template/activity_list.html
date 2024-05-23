@@ -1,0 +1,36 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+    <h1>Activités disponibles</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Time</th>
+                <th>Category</th>
+                <th>Actions</th> <!-- Add a header for the actions -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for activity in activities %}
+            <tr>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.description }}</td>
+                <td>{{ activity.time }}</td>
+                <td>{{ activity.category }}</td>
+                <td>
+                    
+                    <a href="/delete_activity?id={{activity.id }}" class="btn btn-danger btn-sm" role="button">Supprimer</a>
+                    <a href="/modify_activity?id={{ activity.id }}" class="btn btn-warning btn-sm" role="button">Modifier</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody
+    </table>
+
+{% endblock %}

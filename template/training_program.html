@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}create activities{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Entrainement personnalisé </h2>
+    <form action="/trainig_program" method="post">
+    <div class="mb-3">
+        <input type="hidden" class="form-control" name="user_id" value="{{ user.id }}">
+    </div>
+    <!-- <div class="mb-3">
+        <label for="fitness_level">Fitness Level:</label>
+        <input type="text" class="form-control" id="fitness_level" name="fitness_level" required>
+    </div> -->
+    <div class="container mt-5">
+        <div class="mb-3">
+            <label for="fitness_level">Fitness Level:</label>
+            <select class="form-control" id="fitness_level" name="fitness_level" required>
+                <option disabled selected>Selectionner un niveau</option>
+                <option value="beginner">Débutant</option>
+                <option value="intermediate">Intermediare</option>
+                <option value="advanced">Avancer</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="mb-3">
+            <label for="goals">Objectif:</label>
+            <select class="form-control" id="goals" name="goals" required>
+                <option disabled selected>Selectionner votre objectif </option>
+                <option value="perte de poids">Perte de poids</option>
+                <option value="prise de masse">Prise de masse </option>
+                <option value="maintien musculaire">Maintien Musculaire </option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="mb-3">
+            <label for="goals">Preferences:</label>
+            <select class="form-control" id="preference" name="preferences" required>
+                <option disabled selected> Preference </option>
+                <option value="matin">Matin</option>
+                <option value="apres midi"> Aprés Midi </option>
+                <option value="soir"> Soir </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="mb-3">
+            <label for="preferences">Taille:</label>
+            <input type="number" step="0.01" class="form-control" id="height" name="height">
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="mb-3">
+            <label for="preferences">Poids:</label>
+            <input type="number" step="0.01" class="form-control" id="weight" name="weight">
+        </div>
+    </div>
+    
+    
+    <button type="submit" class="btn btn-primary">Creation</button>
+
+</form>
+</div>
+
+{% endblock %}
