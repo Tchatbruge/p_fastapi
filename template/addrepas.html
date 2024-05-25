@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Ajouter un repas{% endblock %}
+{% block title %}Add meal{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -12,12 +12,12 @@
             <input type="date" class="form-control" id="date" name="date" required>
         </div>
         <div class="mb-3">
-            <label for="nom_plat" class="form-label">Nom du plat:</label>
+            <label for="nom_plat" class="form-label">Nom of meal:</label>
             <input type="text" class="form-control" id="name_meal" name="name_meal" required>
         </div>
         
         <div class="mb-3" id="ingredients">
-            <label for="ingredient_1" class="form-label">Ingrédient 1:</label>
+            <label for="ingredient_1" class="form-label">Ingredient 1:</label>
             <input type="text" class="form-control" id="ingredient_1" name="ingredients" required>
             <label for="gramme_1" class="form-label">Grammes :</label>
             <input type="number" class="form-control" id="gramme_1" name="gramms" required>
@@ -36,7 +36,7 @@
         counter++;
         var newIngredient = document.createElement("div");
         newIngredient.innerHTML = `
-            <label for="ingredient_${counter}" class="form-label">Ingrédient ${counter}:</label>
+            <label for="ingredient_${counter}" class="form-label">Ingredient ${counter}:</label>
             <input type="text" class="form-control" id="ingredient_${counter}" name="ingredients" required>
             <label for="gramme_${counter}" class="form-label">Grammes :</label>
             <input type="number" class="form-control" id="gramme_${counter}" name="gramms" required>

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Activité ajoutée{% endblock %}
+{% block title %}Added Activities{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 text-center">
-            <h1 class="mb-4">Vous avez ajouté cette activité pour évaluation</h1>
+            <h1 class="mb-4">You have added this activity for evaluation</h1>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -16,7 +16,7 @@
                 <li class="list-group-item">
                     <strong>{{ activity.name }}</strong><br>
                     <span class="text-muted">{{ activity.description }}</span><br>
-                    <small class="text-info">Durée : {{ activity.time }} minutes</small>
+                    <small class="text-info">Time : {{ activity.time }} minutes</small>
                 </li>
                 {% endfor %}
             </ul>

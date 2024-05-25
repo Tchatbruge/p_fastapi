@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h2>Entrainement personnalisé </h2>
+    <h2>Customized Training </h2>
     <form action="/trainig_program" method="post">
     <div class="mb-3">
         <input type="hidden" class="form-control" name="user_id" value="{{ user.id }}">
@@ -18,22 +18,22 @@
         <div class="mb-3">
             <label for="fitness_level">Fitness Level:</label>
             <select class="form-control" id="fitness_level" name="fitness_level" required>
-                <option disabled selected>Selectionner un niveau</option>
-                <option value="beginner">Débutant</option>
-                <option value="intermediate">Intermediare</option>
-                <option value="advanced">Avancer</option>
+                <option disabled selected>Select Level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
             </select>
         </div>
     </div>
 
     <div class="container mt-5">
         <div class="mb-3">
-            <label for="goals">Objectif:</label>
+            <label for="goals">Goal:</label>
             <select class="form-control" id="goals" name="goals" required>
-                <option disabled selected>Selectionner votre objectif </option>
-                <option value="perte de poids">Perte de poids</option>
-                <option value="prise de masse">Prise de masse </option>
-                <option value="maintien musculaire">Maintien Musculaire </option>
+                <option disabled selected>Select your goal </option>
+                <option value="perte de poids">Loose Weight</option>
+                <option value="prise de masse">Bulking </option>
+                <option value="maintien musculaire">Muscular Support </option>
             </select>
         </div>
     </div>

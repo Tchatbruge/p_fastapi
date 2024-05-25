@@ -10,7 +10,7 @@
         <input type="hidden" name="date" value="{{ date }}">
         <input type="hidden" name="name_meal" value="{{ repas[0].name_meal }}">
         <div class="mb-3">
-            <label for="name_meal" class="form-label">Nom du plat:</label>
+            <label for="name_meal" class="form-label">Name of meal:</label>
             <input type="text" class="form-control" id="name_meal" name="new_name_meal" value="{{ repas[0].name_meal }}"><br>
         </div>   
         <div class="mb-3">
@@ -22,13 +22,13 @@
                 <label for="gramms_{{ loop.index }}" class="form-label">Grammes {{ loop.index }}:</label>
                 <input type="number" class="form-control" id="gramms_{{ loop.index }}" name="new_grammms" value="{{ rep.gramms }}">
 
-                <label for="calories_{{ loop.index }}" class="form-label">Calorie {{ loop.index }}:</label>
+                <label for="calories_{{ loop.index }}" class="form-label">Calories {{ loop.index }}:</label>
                 <input type="number" class="form-control" id="calories_{{ loop.index }}" name="new_calories" value="{{ rep.calories }}">
                 {% endfor %}
             </div>
         </div>
         
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
 {% endblock %}

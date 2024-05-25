@@ -4,38 +4,38 @@
 
 {% block content %}
     <div class="container mt-5">
-        <h2 class="mb-3">Créer une nouvelle activité</h2>
+        <h2 class="mb-3">Create new activity</h2>
         <form action="/create" method="post" class="needs-validation" novalidate>
             <div class="form-group">
-                <label for="name">Nom:</label>
+                <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" name="name" required>
-                <div class="invalid-feedback">Veuillez entrer un nom pour l'activité.</div>
+                <div class="invalid-feedback">Please enter a name of activity.</div>
             </div>
             
             <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
-                <div class="invalid-feedback">Veuillez fournir une description de l'activité.</div>
+                <div class="invalid-feedback">Please enter a description.</div>
             </div>
             
             <div class="form-group">
-                <label for="time">Durée:</label>
-                <input type="number" class="form-control" id="time" name="time" placeholder="le temps en minutes" required>
-                <div class="invalid-feedback">Veuillez indiquer la durée de l'activité.</div>
+                <label for="time">Time:</label>
+                <input type="number" class="form-control" id="time" name="time" placeholder="time in minute" required>
+                <div class="invalid-feedback">Please enter a time.</div>
             </div>
             
             <div class="mb-3">
-                <label for="goals">Catégorie:</label>
+                <label for="goals">Categorie:</label>
                 <select class="form-control" id="category" name="category" required>
-                    <option disabled selected> selectioner une categorie </option>
+                    <option disabled selected> Select categorie </option>
                     <option value="cardio">Cardio</option>
                     <option value="musculation"> Musculation </option>
-                    <option value="flexibilite"> Exercice de Flexibilité </option>
+                    <option value="flexibilite"> Exercise of flexibility </option>
                 </select>
             </div>
             
     
-            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <button type="submit" class="btn btn-primary">Send</button>
 
         </form>
     </div>

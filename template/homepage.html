@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {% block title %}l'application de fitness{% endblock %} </title>
+    <title> {% block title %}FitYou{% endblock %} </title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
     <div>
-        <h1 class="display-4"> Bienvenue sur Fit you {{user.name}}  </h1>
+        <h1 class="display-4"> Welcome to FitYou {{user.name}}  </h1>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,27 +23,27 @@
                 <!-- unique visible par un administrateur -->
                 <!-- Dexteur tu est sensé utiliser cette route pour la création d'activité dans la base donné. seulement l'administrateur peux le voir -->
                 {% if user.is_admin %}
-                <li class="nav-item"><a class="nav-link" href="/add_activity">Ajouter une activité </a></li> 
-                <li class="nav-item"><a class="nav-link" href="/my_activity"> Les activités </a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_activity">Add Activities </a></li> 
+                <li class="nav-item"><a class="nav-link" href="/my_activity"> Activities </a></li>
                 {% endif %} 
                 <!-- fin de la route uniquement visible par l'administrateur -->
 
                 {% if not programes %}
-                <li class="nav-item"><a class="nav-link" href="/user_training_programs"> personnalisé mon entrainement </a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_training_programs"> Customize my training  </a></li>
                 {% else %}
-                <li class="nav-item"><a class="nav-link" href="/user_modify_program"> Modifier mon entrainement </a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_modify_program"> Modify my training </a></li>
                 {% endif %}
 
-                <li class="nav-item"><a class="nav-link" href="/get_program"> mon programme </a></li>
+                <li class="nav-item"><a class="nav-link" href="/get_program"> My training </a></li>
                 <li class="nav-item"><a class="nav-link" href="/alimentation">Alimentation </a></li>
 
-                 <li class="nav-item"><a class="nav-link" href="/evolution"> evolution </a></li>
+                 <li class="nav-item"><a class="nav-link" href="/evolution"> Evolution </a></li>
                 
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.name %}
                     <li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/profile">profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile">My Profile</a></li>
                     <li class="nav-item"><button type="button" class="btn btn-success">Status: ON</button></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
