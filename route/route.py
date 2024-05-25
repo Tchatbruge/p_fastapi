@@ -18,7 +18,7 @@ router = APIRouter()
 template = Jinja2Templates(directory = "template")
 
 Datause=[]
-activity_done = [ ]
+activity_done = []
 print(Datause)
 
 #route utiliser pour créer un utilisateur
@@ -355,7 +355,6 @@ async def get_activity_donne(request: Request, user: User = Depends(get_current_
 
 
 
-
 #ouvrir l'onglet alimentation
 @router.get("/alimentation", response_class=HTMLResponse)
 async def alimentation_page(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -516,4 +515,3 @@ async def read_root(request: Request):
     plot_activity_frequency(activity_counts)
 
     return template.TemplateResponse("index.html", {"request": request})
-
