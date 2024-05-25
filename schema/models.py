@@ -1,4 +1,5 @@
 from sqlalchemy import Column , Integer, String , ForeignKey , Float ,Boolean , JSON,Text
+from sqlalchemy import Column , Integer, String , ForeignKey , Float ,Boolean , JSON,Text
 from sqlalchemy.orm import relationship
 from database.db_init import Base
 
@@ -11,6 +12,8 @@ class User(Base):
     email = Column(String , unique = True)
     password = Column(String)
     is_admin = Column(Boolean, default= False )
+    preferences = relationship("UserPreference", back_populates="user")
+    training_programs = relationship("TrainingProgram",back_populates="user")
     preferences = relationship("UserPreference", back_populates="user")
     training_programs = relationship("TrainingProgram",back_populates="user")
     #Relation ont-to-many avec la table Activity
@@ -46,8 +49,10 @@ class Activity(Base):
     __tablename__ = "fitness_activity"
 
     id = Column(Integer , primary_key=True )
+    id = Column(Integer , primary_key=True )
     name = Column(String)
     description = Column(String)
+    time = Column(Integer)
     time = Column(Integer)
     category = Column(String)
 

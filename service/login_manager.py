@@ -4,15 +4,10 @@ from database.db_init import SessionLocal
 
 
 
-SECRET = "1234" # nous allons rendre le code secret plus secret a la fin
+SECRET = "1234" # secret trés basique, normalement dois être rendu plus complex   
 login_manager = LoginManager(SECRET, token_url='/login', use_cookie=True )
 login_manager.cookie_name = "auth_cookie"
 
-
-# @login_manager.user_loader()
-# async def load_user(user_id: str):
-#     async for db_session in get_db():
-#         return db_session.query(User).filter(User.id == user_id).first()
     
 @login_manager.user_loader()
 def query_user(user_id: str):

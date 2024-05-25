@@ -27,12 +27,14 @@ async def create_user(request: Request ,  name: str = Form(...), surname: str = 
     if db.query(User).filter(User.email == email).first():
         return template.TemplateResponse("403.html",{"request": request})
 
+
     hashed_password = hash_password(password)
     db_user = User(name = name , surname = surname , email= email, password= hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return template.TemplateResponse("login.html",{"request": request})
+
 
 
 #récuperer la page de creation d'un compte
@@ -42,6 +44,7 @@ async def get_account_page(request: Request):
 
 
 #pour se login
+@router.post("/login" ,tags = ["connect"])
 @router.post("/login" ,tags = ["connect"])
 def login(request: Request ,data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)) :
     user = db.query(User).filter(User.email == data.username).first()
@@ -57,11 +60,11 @@ def login(request: Request ,data: OAuth2PasswordRequestForm = Depends(), db: Ses
 
 
 
+
 #récuper l'utilisateur qui est connecter ( pas vraiment utiliser dans le code )
 @router.get('/me' , tags = ["user"])
 async def get_current_user(user: User= Depends(login_manager)):
     return user
-
 
 #route pour afficher la page d'accueille uniquement 
 @router.get("/home")
@@ -142,7 +145,6 @@ def create_activity(request: Request ,name: str = Form(...), description: str = 
 async def get_activity_page(request: Request,db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     programes = get_user_training_programes(user.id, db)
     return template.TemplateResponse("create_activity.html", {"request": request, "user":user, "programes":programes})
-
 
 
 #route pour afficher les activités
@@ -467,7 +469,6 @@ async def delete_meal_line(request: Request,
 
 
 #------------------------------------------------------------------
-
 # **************************** partie Jason ******************************
 
 @router.get("/evolution", response_class=HTMLResponse)
