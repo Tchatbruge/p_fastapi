@@ -1,49 +1,49 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un repas</title>
-</head>
-<body>
-    <h1>Ajouter un repas</h1>
+{% extends "base.html" %}
+
+{% block title %}Ajouter un repas{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Add new meal</h2>
     
     <form action="/alimentation/creer-repas/add-repas" method="post">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br><br>
-        
-        <label for="nom_plat">Nom du plat:</label>
-        <input type="text" id="nom_plat" name="name_meal" required><br><br>
-        
-        <div id="ingredients">
-            <label for="ingredient_1">Ingrédient 1:</label>
-            <input type="text" id="ingredient_1" name="ingredients" required>
-            <label for="gramme_1">Grammes :</label>
-            <input type="number" id="gramme_1" name="gramms" required>
-            <label for="calories_1">Calories:</label>
-            <input type="number" id="calories_1" name="calories" required><br><br>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date:</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <div class="mb-3">
+            <label for="nom_plat" class="form-label">Nom du plat:</label>
+            <input type="text" class="form-control" id="name_meal" name="name_meal" required>
         </div>
         
-        <button type="button" onclick="ajouterIngredient()">Ajouter un ingrédient</button><br><br>
+        <div class="mb-3" id="ingredients">
+            <label for="ingredient_1" class="form-label">Ingrédient 1:</label>
+            <input type="text" class="form-control" id="ingredient_1" name="ingredients" required>
+            <label for="gramme_1" class="form-label">Grammes :</label>
+            <input type="number" class="form-control" id="gramme_1" name="gramms" required>
+            <label for="calories_1" class="form-label">Calories:</label>
+            <input type="number" class="form-control" id="calories_1" name="calories" required><br><br>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="ajouterIngredient()">Ajouter un ingrédient</button><br><br>
         
-        <button type="submit">Ajouter</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
+</div>
 
-    <script>
-        var counter = 1;
-        function ajouterIngredient() {
-            counter++;
-            var newIngredient = document.createElement("div");
-            newIngredient.innerHTML = `
-                <label for="ingredient_${counter}">Ingrédient ${counter}:</label>
-                <input type="text" id="ingredient_${counter}" name="ingredients" required>
-                <label for="gramme_${counter}">Grammes :</label>
-                <input type="number" id="gramme_${counter}" name="gramms" required>
-                <label for="calories_${counter}">Calories:</label>
-                <input type="number" id="calories_${counter}" name="calories" required><br><br>
-            `;
-            document.getElementById("ingredients").appendChild(newIngredient);
-        }
-    </script>
-</body>
-</html>
+<script>
+    var counter = 1;
+    function ajouterIngredient() {
+        counter++;
+        var newIngredient = document.createElement("div");
+        newIngredient.innerHTML = `
+            <label for="ingredient_${counter}" class="form-label">Ingrédient ${counter}:</label>
+            <input type="text" class="form-control" id="ingredient_${counter}" name="ingredients" required>
+            <label for="gramme_${counter}" class="form-label">Grammes :</label>
+            <input type="number" class="form-control" id="gramme_${counter}" name="gramms" required>
+            <label for="calories_${counter}" class="form-label">Calories:</label>
+            <input type="number" class="form-control" id="calories_${counter}" name="calories" required><br><br>
+        `;
+        document.getElementById("ingredients").appendChild(newIngredient);
+    }
+</script>
+{% endblock %}

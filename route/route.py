@@ -328,12 +328,12 @@ async def generate_program(request:Request , db: Session = Depends(get_db) , use
 @router.get("/alimentation", response_class=HTMLResponse)
 async def alimentation_page(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     repas_utilisateur = db.query(Repas).filter(Repas.user_id == user.id).all()
-    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": repas_utilisateur})
+    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": repas_utilisateur, "user":user})
 
 #aller vers la page permettant d'ajouter des plats 
 @router.post("/alimentation/creer-repas")
-async def create_meal(request: Request):  
-    return template.TemplateResponse("addrepas.html", {"request": request})
+async def create_meal(request: Request , user: User = Depends(get_current_user)):
+    return template.TemplateResponse("addrepas.html", {"request": request ,"user":user})
 
 #ajouter un repas
 @router.post("/alimentation/creer-repas/add-repas")
@@ -352,7 +352,7 @@ async def add_meal(request: Request,
         db.add(db_meal)
     db.commit()
     repas_utilisateur = db.query(Repas).filter(Repas.user_id == user.id).all()
-    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": repas_utilisateur})
+    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": repas_utilisateur, "user":user})
 
 # Modifier la date d'un repas
 @router.post("/modifier-date")
@@ -367,7 +367,7 @@ async def modify_date(request: Request, old_date: str = Form(...), new_date: str
     
     db.commit()
 
-    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all()})
+    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all(), "user":user})
 
 # Supprimer un repas
 @router.post("/supprimer-repas")
@@ -385,7 +385,7 @@ async def delete_meal(request: Request,
         db.delete(r)
     
     db.commit() 
-    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all()})
+    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all(), "user":user})
 
 # Modifier  un repas
 @router.post("/alimentation/modifier-repas")
@@ -396,7 +396,7 @@ async def modify_meal(request: Request, date: str = Form(...), name_meal: str = 
         raise HTTPException(status_code=404, detail="Repas not found")  # Erreur si aucun repas n'est trouvé
     
     # Passez les repas trouvés au template pour modification
-    return template.TemplateResponse("modifyrepas.html", {"request": request, "date": date, "repas": repas})
+    return template.TemplateResponse("modifyrepas.html", {"request": request, "date": date, "repas": repas, "user":user})
 
 
 #effectuer et enregistrer les modifications
@@ -425,7 +425,7 @@ async def save_modified_meal(request: Request,
 
     db.commit()
 
-    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all()})
+    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all(), "user":user})
 
 
 # Supprimer une ligne de repas
@@ -443,7 +443,7 @@ async def delete_meal_line(request: Request,
         db.delete(r)
     
     db.commit() 
-    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all()})
+    return template.TemplateResponse("alimentation.html", {"request": request, "repas_utilisateur": db.query(Repas).filter(Repas.user_id == user.id).all(), "user":user})
 
 
 

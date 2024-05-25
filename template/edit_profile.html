@@ -8,7 +8,7 @@
     <form action="/users/profile" method="post">
         <input type="hidden" name="_method" value="put">
         <div class="mb-3">
-            <label for="name" class="form-label">name:</label>
+            <label for="name" class="form-label">Name:</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
         </div>
         <div class="mb-3">
@@ -28,7 +28,7 @@
             <input type="int" class="form-control" id="weight" name="weight" value="{{ user.weight }}" required>
         </div>
         <div class="mb-3">
-            <label for="admin_name" class="form-label">administrateur:</label>
+            <label for="admin_name" class="form-label">Administrateur:</label>
             <input type="text" class="form-control" id="admin_name" name="is_admin" value="{{ user.is_admin }}" required readonly>
         </div>
         <button type="submit" class="btn btn-primary">Update Profile</button>
