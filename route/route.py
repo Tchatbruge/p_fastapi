@@ -273,20 +273,30 @@ async def generate_program(request:Request , db: Session = Depends(get_db) , use
     #Récupérer les préférences de l'uilisateur 
     user_preference = programes[0] if programes else None
 
+
     if user_preference:
         fitness_level = user_preference.fitness_level
         goals = user_preference.goals
         weight = float(user_preference.weight)
+        height = float(user_preference.height)
+        # Calculer le BMI
+        bmi = weight / (height / 100) ** 2
 
         # Filtrer les activités en fonction des préférences
 
         filtered_activities = []
         for activity in activities:
-            if fitness_level == 'beginner' and  weight >100 and  goals == 'perte de poids' and activity.category in ['cardio', 'musculation']:
-                filtered_activities.append(activity)
+            if fitness_level == 'beginner' and goals == 'perte de poids' and activity.category in ['cardio', 'musculation']:
+                if bmi >= 30:  # Obésité
+                    filtered_activities.append(activity)
+                elif 25 <= bmi < 30:  # Surpoids
+                    filtered_activities.append(activity)
 
-            elif fitness_level == "beginner" and (weight >60 and weight <=80) and goals in ['prise de masse' , 'maintien musculaire' ] and activity.category in ['cardio', 'musculation'] :
-                filtered_activities.append(activity)
+            elif fitness_level == "beginner" and goals in ['prise de masse', 'maintien musculaire'] and activity.category in ['cardio', 'musculation']:
+                if 18.5 <= bmi < 25:  # Poids normal
+                    filtered_activities.append(activity)
+                elif bmi < 18.5:  # Insuffisance pondérale
+                    filtered_activities.append(activity)
 
             elif fitness_level == 'intermediate' and goals == 'prise de masse' and activity.category in ['cardio', 'musculation']:
                 filtered_activities.append(activity)
@@ -340,7 +350,7 @@ async def get_activity_donne(request: Request, user: User = Depends(get_current_
             "time": activity.time
         })
 
-    print("********************************",activity_done)
+
     return template.TemplateResponse("donne_program.html",{"request": request ,"programes":programes , "user":user , "programe":programe,"activity_done":activity_done })
 
 

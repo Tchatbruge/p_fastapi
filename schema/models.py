@@ -49,10 +49,8 @@ class Activity(Base):
     __tablename__ = "fitness_activity"
 
     id = Column(Integer , primary_key=True )
-    id = Column(Integer , primary_key=True )
     name = Column(String)
     description = Column(String)
-    time = Column(Integer)
     time = Column(Integer)
     category = Column(String)
 
