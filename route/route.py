@@ -18,6 +18,7 @@ router = APIRouter()
 template = Jinja2Templates(directory = "template")
 
 Datause=[]
+activity_done = [ ]
 print(Datause)
 
 #route utiliser pour créer un utilisateur
@@ -326,11 +327,10 @@ async def generate_program(request:Request , db: Session = Depends(get_db) , use
     else:
         return template.TemplateResponse("vide.html", {"request":request , "user":user}) 
 
-@router.get("/get_program", tags=["program"], response_class=HTMLResponse)
+@router.get("/done_program", tags=["program"], response_class=HTMLResponse)
 async def get_activity_donne(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     activity_name = request.query_params.get("id", default=None)
     activity = db.query(Activity).filter(Activity.name == activity_name).first()
-    activity_done = [ ]
     programes = await get_user_training_programes(user.id, db)
     programe = await get_training_programes(user.id , db)
     if activity:
@@ -341,7 +341,7 @@ async def get_activity_donne(request: Request, user: User = Depends(get_current_
         })
 
     print("********************************",activity_done)
-    return template.TemplateResponse("program_perso.html",{"request": request ,"programes":programes , "user":user , "programe":programe,"activity_done":activity_done })
+    return template.TemplateResponse("donne_program.html",{"request": request ,"programes":programes , "user":user , "programe":programe,"activity_done":activity_done })
 
 
 

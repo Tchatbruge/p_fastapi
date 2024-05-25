@@ -30,12 +30,12 @@
                         <ul class="list-unstyled">
                             {% for exercise in day.exercises %}
                             <li>
-                                <strong>{{ exercise.name }}</strong> -> {{ exercise.description }} -> En  ({{ exercise.time }} minutes) 
-                                 
-                                <a href="/get_program?id={{ exercise.name}}" class="btn btn-primary btn-sm" role="button">Valider</a>
+                                <strong>{{ exercise.name }}</strong> -> {{ exercise.description }} -> En  ({{ exercise.time }} minutes)
+                                <a href="/done_program?id={{ exercise.name}}" class="btn btn-primary btn-sm" role="button">Valider</a>
 
                             </li>
                             {% endfor %}
+
                         </ul>
                     </td>
                 </tr>
