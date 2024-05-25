@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Programme personalisé {% endblock %}
+
+{% block content %}
+
+
+<h1>Programme d'entraînement</h1>
+    
+    <ul id="training-programs">
+        {% for program in programe %}
+            <li>{{ program.program_details }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Programme d'entraînement</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Jour</th>
+                    <th>Exercices</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in schedule %}
+                <tr>
+                    <td>{{ day.day }}</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for exercise in day.exercises %}
+                            <li>
+                                <strong>{{ exercise.name }}</strong> -> {{ exercise.description }} -> En  ({{ exercise.time }} minutes) 
+                                 
+                                <a href="/get_program?id={{ exercise.name}}" class="btn btn-primary btn-sm" role="button">Valider</a>
+
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</ul>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}create activities{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-3">Créer une nouvelle activité</h2>
+        <form action="/create" method="post" class="needs-validation" novalidate>
+            <div class="form-group">
+                <label for="name">Nom:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <div class="invalid-feedback">Veuillez entrer un nom pour l'activité.</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                <div class="invalid-feedback">Veuillez fournir une description de l'activité.</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="time">Durée:</label>
+                <input type="number" class="form-control" id="time" name="time" placeholder="le temps en minutes" required>
+                <div class="invalid-feedback">Veuillez indiquer la durée de l'activité.</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="goals">Catégorie:</label>
+                <select class="form-control" id="category" name="category" required>
+                    <option disabled selected> selectioner une categorie </option>
+                    <option value="cardio">Cardio</option>
+                    <option value="musculation"> Musculation </option>
+                    <option value="flexibilite"> Exercice de Flexibilité </option>
+                </select>
+            </div>
+            
+    
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+
+        </form>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Récupération de tous les formulaires pour appliquer les styles de validation Bootstrap personnalisés
+                var forms = document.getElementsByClassName('needs-validation');
+                // Boucle sur eux et empêche la soumission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+        </script>
+    
+    {% endblock %}

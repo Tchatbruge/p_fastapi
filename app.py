@@ -11,8 +11,10 @@ app.include_router(router)
 
 
 #configiuration des templates jinja2
-templates = Jinja2Templates(directory = "/template")
 
+
+templates = Jinja2Templates(directory = "/template")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 #au cas ou vous souhaitez ajouter des images 
 # app.mount("/static", StaticFiles(directory="static"), name = "static")
 

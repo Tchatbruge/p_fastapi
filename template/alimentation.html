@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Alimentation{% endblock %}
+
+{% block content %}
+    <script>
+        // Fonction pour afficher le champ de saisie de date et le bouton Enregistrer lors de la modification
+        function afficherChampDateEtEnregistrer(elementId) {
+            var dateElement = document.getElementById(elementId);
+            var dateValue = dateElement.textContent.trim();
+            dateElement.innerHTML = `<input type="date" id="nouvelle_date_${elementId}" value="${dateValue}">`;
+            // Cacher le bouton "Modifier"
+            document.getElementById(`modifier_${elementId}`).style.display = 'none';
+            // Afficher le bouton "Enregistrer"
+            document.getElementById(`enregistrer_${elementId}`).style.display = 'inline-block';
+        }
+
+        // Fonction pour soumettre le formulaire de modification avec la nouvelle date
+        function submitForm(date) {
+            var newDate = document.getElementById(`nouvelle_date_date_${date}`).value;
+            document.querySelector(`form[action="/modifier-date"] input[name=new_date]`).value = newDate;
+            document.querySelector(`form[action="/modifier-date"] button[type=submit]`).click();
+        }
+
+        // Fonction pour mettre à jour l'interface après la modification de la date
+        function updateDate(date, newDate) {
+            document.getElementById(`date_${date}`).textContent = newDate;
+            // Afficher le bouton "Modifier"
+            document.getElementById(`modifier_${date}`).style.display = 'inline-block';
+            // Cacher le bouton "Enregistrer"
+            document.getElementById(`enregistrer_${date}`).style.display = 'none';
+        }
+
+        // Fonction pour afficher une alerte de confirmation avant la suppression
+        function confirmerSuppression() {
+            return confirm("Êtes-vous sûr de vouloir supprimer ?");
+        }
+
+        // Écouter l'événement "submit" du formulaire de modification de date
+        document.querySelector(`form[action="/modifier-date"]`).addEventListener('submit', function(event) {
+            event.preventDefault();
+            var date = event.target.querySelector('input[name=old_date]').value;
+            var newDate = event.target.querySelector('input[name=new_date]').value;
+            // Envoyer la requête de modification de date au serveur
+            // Après la modification de la date sur le serveur, mettre à jour l'interface
+            updateDate(date, newDate);
+        });
+    </script>
+
+<div class="container mt-5">
+    <h2>Alimentation</h2>
+    <table>
+        {% set dates_seen = [] %}
+        {% for repas in repas_utilisateur %}
+            {% if repas.date not in dates_seen %}
+                <tr>
+                    <td>
+                        <h5 class="card-title">Repas du <span id="date_{{ repas.date }}">{{ repas.date }}</span></h5>
+                    </td>
+                    <td>
+                        <button id="modifier_date_{{ repas.date }}" onclick="afficherChampDateEtEnregistrer('date_{{ repas.date }}')" class="btn btn-primary">Modifier</button>
+                        <form action="/modifier-date" method="post" id="form_{{ repas.date }}" style="display:inline;">
+                            <input type="hidden" name="old_date" value="{{ repas.date }}">
+                            <input type="date" class="form-control" name="new_date" id="nouvelle_date_date_{{ repas.date }}" style="display: none;">
+                            <button type="submit" id="enregistrer_date_{{ repas.date }}" style="display: none;" onclick="submitForm('{{ repas.date }}')" class="btn btn-primary">Enregistrer</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/supprimer-repas" method="post" onsubmit="return confirmerSuppression()" style="display:inline;">
+                            <input type="hidden" name="date" value="{{ repas.date }}">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul>
+                                    {% set meal_seen = [] %}
+                                    {% for repas_item in repas_utilisateur if repas_item.date == repas.date %}
+                                        {% if repas_item.name_meal not in meal_seen %}
+
+
+                                        <div class="row d-flex align-items-center justify-content-center h-100"  > 
+                                            <li class="list-group-item">{{ repas_item.name_meal }}:
+                                                <form action="/alimentation/modifier-repas" method="post" style="display:inline;">
+                                                    <input type="hidden" name="date" value="{{ repas_item.date }}">
+                                                    <input type="hidden" name="name_meal" value="{{ repas_item.name_meal }}">
+                                                    <button type="submit" class="btn btn-primary">Modifier</button>
+                                                </form>
+                                                <form action="/supprimer-ligne" method="post" onsubmit="return confirmerSuppression()" style="display:inline;">
+                                                    <input type="hidden" name="date" value="{{ repas_item.date }}">
+                                                    <input type="hidden" name="name_meal" value="{{ repas_item.name_meal }}">
+                                                    <button type="submit" class="btn btn-danger" >Supprimer ce repas</button>
+                                                </form>
+                                            </li>
+                                        </div>
+
+
+                                            <ul class="list-group list-group-flush">
+                                                {% set ingredients_seen = [] %}
+                                                {% for sub_item in repas_utilisateur if sub_item.date == repas.date and sub_item.name_meal == repas_item.name_meal %}
+                                                    {% if (sub_item.ingredients, sub_item.gramms, sub_item.calories) not in ingredients_seen %}
+                                                        <li class="list-group-item">{{ sub_item.gramms }}g de {{ sub_item.ingredients }} - {{ sub_item.calories }}kcal</li>
+                                                        {% set _ = ingredients_seen.append((sub_item.ingredients, sub_item.gramms, sub_item.calories)) %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        
+
+
+                                            {% set _ = meal_seen.append(repas_item.name_meal) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% set _ = dates_seen.append(repas.date) %}
+            {% endif %}
+        {% endfor %}
+    </table>
+    <form action="/alimentation/creer-repas" method="post">
+        <button type="submit" class="btn btn-primary">Ajouter un repas</button>
+    </form>
+</div>
+{% endblock %}
